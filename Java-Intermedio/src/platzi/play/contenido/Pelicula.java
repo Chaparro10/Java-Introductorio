@@ -1,0 +1,32 @@
+package platzi.play.contenido;
+
+public class Pelicula {
+
+    public String titulo;
+    public String descripcion;
+    public double duracion;
+    public String genero;
+    public int anioEstreno;
+    public double calificacion;
+    public boolean disponible;
+
+
+
+    public void reproduciendo(){
+        System.out.println("Reproduciendo: " + titulo);
+    }
+
+    public  String obtenerFichaTecnica(){
+        return titulo +"[" + anioEstreno + "]" +" Genero: "+ genero + " Duracion: "+ duracion +" Calificicacion: "+ (calificacion + " / 5" ) +" Estatus: "+ (disponible==true ? "Disponible" : "No Disponible");
+    }
+
+    public void calificar(double calificacion){
+            if(calificacion>=0 && calificacion<=5){
+                this.calificacion=calificacion;
+            }
+    }
+
+
+
+
+}

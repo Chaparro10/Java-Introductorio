@@ -1,15 +1,29 @@
+import platzi.play.contenido.Pelicula;
+import platzi.play.plataforma.Usuario;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        System.out.println("PLATZI PLAY!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Pelicula pelicula = new Pelicula();
+
+        pelicula.titulo="GOKU";
+        pelicula.duracion=2.20;
+        pelicula.anioEstreno=2025;
+        pelicula.disponible=true;
+        pelicula.genero="animacion";
+        pelicula.calificar(4);
+
+        System.out.println(pelicula.obtenerFichaTecnica());
+
+
+        Usuario usuario = new Usuario("Usuario 1","usuario1@gmail.com");
+
+        usuario.verPelicula(pelicula);
+
     }
 }
