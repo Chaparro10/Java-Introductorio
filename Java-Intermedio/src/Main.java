@@ -16,10 +16,16 @@ public class Main {
     public  static final int BUSCAR=3;
     public  static final int BUSCAR_POR_GENERO=4;
     public  static final int ELIMINAR=5;
+    public  static  final int POPULAR=7;
+    public  static  final int PELICULA_LARGA=8;
+    public  static  final int PELICULA_CORTA=9;
+    public  static  final int PELICULAS_IGUALES=10;
     public static void main(String[] args) {
         System.out.println(NAME +" "+ VERSION);
         Plataforma plataforma = new Plataforma(NAME);
         cargarPeliculas(plataforma);
+
+        System.out.println("Más de "+ plataforma.totalDuracionContenido() +" minutos de contenido" );
 
         while (true){
                 int opcionElegida=ScannerUtils.capturarNumero("""
@@ -29,6 +35,10 @@ public class Main {
                         3.Buscar por titulo
                         4.Buscar por genero
                         5.Eliminar
+                        7.Populares
+                        8.Pelicula mas larga
+                        9.Pelicula mas corta
+                        10.Peliculas que duran lo mismo
                         6.Salir
                         """);
             System.out.println("Opcion elegida:"+ opcionElegida);
@@ -76,13 +86,31 @@ public class Main {
                     }
 
                 }
+                case  POPULAR -> {
+                    System.out.println("====POPULARES====");
+                    List<Pelicula> peliculas =plataforma.getPopulares();
+                    peliculas.forEach(contenido-> System.out.println(contenido.obtenerFichaTecnica()));
+                }
+                case  PELICULA_LARGA -> {
+                    System.out.println("====PELICULA MAS LARGA====");
+                    System.out.println(plataforma.getPeliculaLarga());
+                }
+                case  PELICULA_CORTA -> {
+                    System.out.println("====PELICULA MAS CORTA====");
+                    System.out.println(plataforma.getPeliculaCorta());
+                }
+                case  PELICULAS_IGUALES -> {
+                    System.out.println("====PELICULA DURAN LO MISMO====");
+                    List<Pelicula> peliculas = plataforma.getPeliculasConMismaDuracion();
+                   peliculas.forEach(contenido-> System.out.println(contenido.obtenerFichaTecnica()));
+                }
                 case SALIR ->  System.exit(0);
             }
         }
     }
     private static  void cargarPeliculas(Plataforma plataforma){
-        plataforma.agregar(new TestProtected("shrek","animacion",120,true));
-        plataforma.agregar(new TestProtected("Inception","Ciencia ficcion",120,true));
+        plataforma.agregar(new TestProtected("shrek","animacion",100 ,true));
+        plataforma.agregar(new TestProtected("Inception","Ciencia ficcion",100,true));
         plataforma.agregar(new TestProtected("Titanic","Drama",120,true));
         plataforma.agregar(new TestProtected("John wick","Accion",120,true));
         plataforma.agregar(new TestProtected("El conjuro","Terror",120,true));
@@ -90,6 +118,6 @@ public class Main {
         plataforma.agregar(new TestProtected("Interstellar","Ciencia ficcion",120,true));
         plataforma.agregar(new TestProtected("Joker","Drama",120,true));
         plataforma.agregar(new TestProtected("Toy story","animacion",120,true));
-        plataforma.agregar(new TestProtected("Avengers","Accion",120,true));
+        plataforma.agregar(new TestProtected("Avengers","Accion",90,true));
     }
 }

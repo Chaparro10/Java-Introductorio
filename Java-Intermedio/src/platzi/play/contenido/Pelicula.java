@@ -24,11 +24,11 @@ public class Pelicula {
 
 
     public Pelicula(){}
-    public Pelicula(String titulo, String genero, double calificacion,boolean disponible) {
+    public Pelicula(String titulo, String genero,boolean disponible, double duracion) {
         this.titulo = titulo;
         this.genero = genero;
-        this.calificacion = calificacion;
         this.disponible=disponible;
+        this.duracion=duracion;
     }
 
     public void reproduciendo(){
@@ -57,5 +57,12 @@ public class Pelicula {
     }
     public String getGenero() {
         return genero;
+    }
+
+    public double getDuracion() {
+        return duracion;
+    }
+    public double getCalificacion() {
+        return calificacion;
     }
 }

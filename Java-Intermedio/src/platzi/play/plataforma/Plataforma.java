@@ -3,6 +3,7 @@ package platzi.play.plataforma;
 import platzi.play.contenido.Pelicula;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,4 +54,33 @@ public class Plataforma {
                 .collect(Collectors.toList());
         return titulos;
     }
+
+    public double totalDuracionContenido(){
+        return contenido.stream().mapToDouble(s->s.getDuracion()).sum();
+    }
+
+    public List<Pelicula> getPopulares(){
+        return  contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getCalificacion).reversed())
+                .toList();
+//        return contenido.stream().filter(s->s.getCalificacion()>3)
+//                .map(Pelicula::obtenerFichaTecnica)
+//                .toList();
+    }
+
+    public String getPeliculaLarga(){
+        return  contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getDuracion).reversed()).map(Pelicula::obtenerFichaTecnica).findFirst().orElse(null);
+    }
+    public String getPeliculaCorta(){
+        return  contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getDuracion)).map(Pelicula::obtenerFichaTecnica).findFirst().orElse(null);
+    }
+
+    public List<Pelicula> getPeliculasConMismaDuracion() {
+        return contenido.stream()
+                .collect(Collectors.groupingBy(Pelicula::getDuracion))
+                .values().stream()
+                .filter(lista -> lista.size() > 1)   // solo duraciones repetidas
+                .flatMap(List::stream)               // aplana
+                .collect(Collectors.toList());
+    }
+
 }
