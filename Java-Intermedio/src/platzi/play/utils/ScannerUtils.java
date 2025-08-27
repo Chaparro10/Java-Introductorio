@@ -8,8 +8,13 @@ public class ScannerUtils {
         System.out.println(texto +": ");
         return  scanner.next();
     }
-    public static int capturarNumero(int numero){
+    public static int capturarNumero(String numero){
         System.out.println(numero +": ");
+
+        if(!scanner.hasNextInt()){
+            System.out.println("Dato no valido "+ numero);
+            scanner.nextLine();
+        }
         return  scanner.nextInt();
     }
     public static double capturarDecimal(String numero){

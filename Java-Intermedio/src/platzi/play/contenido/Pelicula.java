@@ -52,6 +52,10 @@ public class Pelicula {
         this.disponible=status;
     }
 
-
-
+    public String getTitulo() {
+        return titulo;
+    }
+    public String getGenero() {
+        return genero;
+    }
 }

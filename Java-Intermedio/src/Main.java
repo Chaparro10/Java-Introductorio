@@ -4,42 +4,92 @@ import platzi.play.plataforma.Plataforma;
 import platzi.play.plataforma.Usuario;
 import platzi.play.utils.ScannerUtils;
 
-import java.time.LocalDate;
+import java.util.List;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public  static final String VERSION="1.0";
     public  static final String NAME="PLATZI CINEMAX";
+    public  static final int SALIR=6;
+    public  static final int AGREGAR=1;
+    public  static final int MOSTRAR=2;
+    public  static final int BUSCAR=3;
+    public  static final int BUSCAR_POR_GENERO=4;
+    public  static final int ELIMINAR=5;
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
         System.out.println(NAME +" "+ VERSION);
-
-        String titulo = ScannerUtils.capturarTexto("Ingresa el titulo");
-        double duracion = ScannerUtils.capturarDecimal("Ingresa la duracion");
-        String genero = ScannerUtils.capturarTexto("Ingresa el genero");
-
-
         Plataforma plataforma = new Plataforma(NAME);
-        TestProtected pelicula = new TestProtected(titulo, genero, duracion, false);
-        pelicula.calificar(4);
-        pelicula.AsignarValorStatusPelicula(true);
-        System.out.println(pelicula.obtenerFichaTecnica());
+        cargarPeliculas(plataforma);
 
-        Usuario usuario = new Usuario("Usuario 1","usuario1@gmail.com");
-        usuario.verPelicula(pelicula);
+        while (true){
+                int opcionElegida=ScannerUtils.capturarNumero("""
+                        Ingresa una de las siguientes opciones:
+                        1.Agregar contenido
+                        2.Mostrar todo
+                        3.Buscar por titulo
+                        4.Buscar por genero
+                        5.Eliminar
+                        6.Salir
+                        """);
+            System.out.println("Opcion elegida:"+ opcionElegida);
 
+            switch (opcionElegida){
+                case AGREGAR -> {
+                    String titulo = ScannerUtils.capturarTexto("Ingresa el titulo");
+                    double duracion = ScannerUtils.capturarDecimal("Ingresa la duracion");
+                    String genero = ScannerUtils.capturarTexto("Ingresa el genero");
+                    TestProtected pelicula = new TestProtected(titulo, genero, duracion, false);
+                    pelicula.calificar(4);
+                    pelicula.AsignarValorStatusPelicula(true);
+                    plataforma.agregar(pelicula);
+                }
+                case MOSTRAR -> plataforma.mostrarPeliculas();
+                case  BUSCAR -> {
+                    String titulo = ScannerUtils.capturarTexto("Ingresa el titulo a buscar");
+                    Pelicula pelicula= plataforma.buscarPorTitulo(titulo);
+                    if(pelicula != null){
+                        System.out.println("=========PELICULA ENCONTRADA=======");
+                        System.out.println(pelicula.obtenerFichaTecnica());
+                    }else{
+                        System.out.println("Titulo no encontrado intente nuevamente");
+                    }
 
-        plataforma.agregar(pelicula);
-        System.out.println("=======LISTADO DE PELICULAS=========");
-        System.out.println("PELICULAS TOTAL: "+ plataforma.getContenido().size());
-        plataforma.mostrarPeliculas();
-        plataforma.eliminar(pelicula);
-        System.out.println("PELICULAS DESPUES DE ELIMINAR");
-        plataforma.mostrarPeliculas();
+                }
+                case BUSCAR_POR_GENERO -> {
+                    String genero = ScannerUtils.capturarTexto("Ingresa el genero a filtar");
+                     List<String> peliculas= plataforma.buscarPorGenero(genero);
+                    if(peliculas != null){
+                        System.out.println("PELICULAS ENCONTRADAS CON EL GENERO::: "+ genero);
+                        System.out.println(peliculas);
+                    }else{
+                        System.out.println("Peliculas no encontradas con ese genero");
+                    }
 
+                }
+                case ELIMINAR -> {
+                    String titulo = ScannerUtils.capturarTexto("Ingresa el titulo a eliminar");
+                    Pelicula pelicula= plataforma.buscarPorTitulo(titulo);
+                    if(pelicula != null){
+                        plataforma.eliminar(pelicula);
+                    }else{
+                        System.out.println("Titulo no encontrado intente nuevamente");
+                    }
 
-
+                }
+                case SALIR ->  System.exit(0);
+            }
+        }
+    }
+    private static  void cargarPeliculas(Plataforma plataforma){
+        plataforma.agregar(new TestProtected("shrek","animacion",120,true));
+        plataforma.agregar(new TestProtected("Inception","Ciencia ficcion",120,true));
+        plataforma.agregar(new TestProtected("Titanic","Drama",120,true));
+        plataforma.agregar(new TestProtected("John wick","Accion",120,true));
+        plataforma.agregar(new TestProtected("El conjuro","Terror",120,true));
+        plataforma.agregar(new TestProtected("Coco","animacion",120,true));
+        plataforma.agregar(new TestProtected("Interstellar","Ciencia ficcion",120,true));
+        plataforma.agregar(new TestProtected("Joker","Drama",120,true));
+        plataforma.agregar(new TestProtected("Toy story","animacion",120,true));
+        plataforma.agregar(new TestProtected("Avengers","Accion",120,true));
     }
 }
