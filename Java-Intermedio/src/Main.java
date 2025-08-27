@@ -1,5 +1,6 @@
 import platzi.play.contenido.Pelicula;
 import platzi.play.plataforma.Usuario;
+import platzi.play.utils.ScannerUtils;
 
 import java.time.LocalDate;
 
@@ -11,13 +12,17 @@ public class Main {
         // to see how IntelliJ IDEA suggests fixing it.
         System.out.println("PLATZI PLAY!");
 
+            String titulo = ScannerUtils.capturarTexto("Ingresa el titulo");
+        double duracion = ScannerUtils.capturarDecimal("Ingresa la duracion");
+        String genero = ScannerUtils.capturarTexto("Ingresa el genero");
+
         Pelicula pelicula = new Pelicula();
 
-        pelicula.titulo="GOKU";
-        pelicula.duracion=2.20;
+        pelicula.titulo=titulo;
+        pelicula.duracion=duracion;
         pelicula.fechaEstreno= LocalDate.now();
         pelicula.disponible=true;
-        pelicula.genero="animacion";
+        pelicula.genero=genero;
         pelicula.calificar(4);
 
         System.out.println(pelicula.obtenerFichaTecnica());
