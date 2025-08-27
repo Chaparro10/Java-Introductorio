@@ -1,4 +1,5 @@
 import platzi.play.contenido.Pelicula;
+import platzi.play.contenido.TestProtected;
 import platzi.play.plataforma.Usuario;
 import platzi.play.utils.ScannerUtils;
 
@@ -14,21 +15,15 @@ public class Main {
         // to see how IntelliJ IDEA suggests fixing it.
         System.out.println(NAME +" "+ VERSION);
 
-            String titulo = ScannerUtils.capturarTexto("Ingresa el titulo");
+        String titulo = ScannerUtils.capturarTexto("Ingresa el titulo");
         double duracion = ScannerUtils.capturarDecimal("Ingresa la duracion");
         String genero = ScannerUtils.capturarTexto("Ingresa el genero");
 
-        Pelicula pelicula = new Pelicula();
 
-        pelicula.titulo=titulo;
-        pelicula.duracion=duracion;
-        pelicula.fechaEstreno= LocalDate.now();
-        pelicula.disponible=true;
-        pelicula.genero=genero;
+        TestProtected pelicula = new TestProtected(titulo, genero, duracion, false);
         pelicula.calificar(4);
-
+        pelicula.AsignarValorStatusPelicula(true);
         System.out.println(pelicula.obtenerFichaTecnica());
-
 
         Usuario usuario = new Usuario("Usuario 1","usuario1@gmail.com");
 

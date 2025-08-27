@@ -4,21 +4,31 @@ import java.time.LocalDate;
 
 public class Pelicula {
 
-    public String titulo;
-    public String descripcion;
-    public double duracion;
-    public String genero;
-    public LocalDate fechaEstreno;
-    public double calificacion;
-    public boolean disponible;
+    private String titulo;
+    private String descripcion;
+    private double duracion;
+    private String genero;
+    private LocalDate fechaEstreno=LocalDate.now();
+    private double calificacion;
+    private boolean disponible;
+
+/*
+    *********** private ***************
+    Acceso más restringido.
+    Solo se puede acceder dentro de la misma clase.
+    Ni siquiera una subclase o una clase del mismo paquete puede verlo.
+    Se usa mucho para atributos y para métodos que no deben ser usados desde fuera.
+ */
+
+
 
 
     public Pelicula(){}
-    public Pelicula(String titulo, String descripcion, String genero, double calificacion) {
+    public Pelicula(String titulo, String genero, double calificacion,boolean disponible) {
         this.titulo = titulo;
-        this.descripcion = descripcion;
         this.genero = genero;
         this.calificacion = calificacion;
+        this.disponible=disponible;
     }
 
     public void reproduciendo(){
@@ -26,6 +36,7 @@ public class Pelicula {
     }
 
     public  String obtenerFichaTecnica(){
+        System.out.println("========status======="+disponible);
         return titulo +"[" + fechaEstreno.getYear() + "]" +" Genero: "+ genero + " Duracion: "+ duracion +" Calificicacion: "+ (calificacion + " / 5" ) +" Estatus: "+ (disponible==true ? "Disponible" : "No Disponible");
     }
 
@@ -34,7 +45,12 @@ public class Pelicula {
                 this.calificacion=calificacion;
             }
     }
-
+    public boolean isDisponible(){
+        return this.disponible;
+    }
+    protected void setDisponible(boolean status){
+        this.disponible=status;
+    }
 
 
 
