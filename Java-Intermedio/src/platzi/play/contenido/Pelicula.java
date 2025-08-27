@@ -7,7 +7,7 @@ public class Pelicula {
     private String titulo;
     private String descripcion;
     private double duracion;
-    private String genero;
+    private Genero genero;
     private LocalDate fechaEstreno=LocalDate.now();
     private double calificacion;
     private boolean disponible;
@@ -24,7 +24,7 @@ public class Pelicula {
 
 
     public Pelicula(){}
-    public Pelicula(String titulo, String genero,boolean disponible, double duracion) {
+    public Pelicula(String titulo, Genero genero,boolean disponible, double duracion) {
         this.titulo = titulo;
         this.genero = genero;
         this.disponible=disponible;
@@ -55,7 +55,7 @@ public class Pelicula {
     public String getTitulo() {
         return titulo;
     }
-    public String getGenero() {
+    public Genero getGenero() {
         return genero;
     }
 
