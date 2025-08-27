@@ -13,6 +13,13 @@ public class Pelicula {
     public boolean disponible;
 
 
+    public Pelicula(){}
+    public Pelicula(String titulo, String descripcion, String genero, double calificacion) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.genero = genero;
+        this.calificacion = calificacion;
+    }
 
     public void reproduciendo(){
         System.out.println("Reproduciendo: " + titulo);
