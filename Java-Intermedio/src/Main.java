@@ -1,6 +1,8 @@
 import platzi.play.contenido.Pelicula;
 import platzi.play.plataforma.Usuario;
 
+import java.time.LocalDate;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -13,7 +15,7 @@ public class Main {
 
         pelicula.titulo="GOKU";
         pelicula.duracion=2.20;
-        pelicula.anioEstreno=2025;
+        pelicula.fechaEstreno= LocalDate.now();
         pelicula.disponible=true;
         pelicula.genero="animacion";
         pelicula.calificar(4);
