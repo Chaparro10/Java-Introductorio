@@ -1,6 +1,7 @@
 import platzi.play.contenido.Genero;
 import platzi.play.contenido.Pelicula;
 import platzi.play.contenido.TestProtected;
+import platzi.play.exception.PeliculaExistenteException;
 import platzi.play.plataforma.Plataforma;
 import platzi.play.plataforma.Usuario;
 import platzi.play.utils.ScannerUtils;
@@ -52,7 +53,12 @@ public class Main {
                     TestProtected pelicula = new TestProtected(titulo, genero, duracion, false);
                     pelicula.calificar(4);
                     pelicula.AsignarValorStatusPelicula(true);
-                    plataforma.agregar(pelicula);
+
+                    try{
+                        plataforma.agregar(pelicula);
+                    }catch (PeliculaExistenteException e){
+                        System.out.println(e.getMessage());
+                    }
                 }
                 case MOSTRAR -> plataforma.mostrarPeliculas();
                 case  BUSCAR -> {
