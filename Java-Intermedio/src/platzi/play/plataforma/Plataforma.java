@@ -2,6 +2,7 @@ package platzi.play.plataforma;
 
 import platzi.play.contenido.Genero;
 import platzi.play.contenido.Pelicula;
+import platzi.play.contenido.ResumenContenido;
 import platzi.play.exception.PeliculaExistenteException;
 
 import java.util.ArrayList;
@@ -39,6 +40,10 @@ public class Plataforma {
 
         //lambdas
         contenido.forEach(contenido-> System.out.println("Pelicula: "+ contenido.obtenerFichaTecnica()));
+    }
+
+    public List<ResumenContenido> getResumenes(){
+        return contenido.stream().map(c ->new ResumenContenido(c.getTitulo(),c.getDuracion(),c.getGenero())).toList();
     }
     public void eliminar(Pelicula element){
         this.contenido.remove(element);
