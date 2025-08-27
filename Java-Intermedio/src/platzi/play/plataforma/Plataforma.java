@@ -24,21 +24,26 @@ public class Plataforma {
     }
     public void mostrarPeliculas(){
         System.out.println("TOTAL DE PELICULAS::: "+ contenido.size());
-        for(Pelicula element:contenido){
-            System.out.println("Pelicula: "+ element.obtenerFichaTecnica());
-        }
+//        for(Pelicula element:contenido){
+//            System.out.println("Pelicula: "+ element.obtenerFichaTecnica());
+//        }
+
+        //lambdas
+        contenido.forEach(contenido-> System.out.println("Pelicula: "+ contenido.obtenerFichaTecnica()));
     }
     public void eliminar(Pelicula element){
         this.contenido.remove(element);
         System.out.println("Pelicula eliminada: "+ element.obtenerFichaTecnica());
     }
     public Pelicula buscarPorTitulo(String titulo){
-        for(Pelicula element:contenido){
-            if(element.getTitulo().equalsIgnoreCase(titulo)){
-                return element;
-            }
-        }
-        return  null;
+//        for(Pelicula element:contenido){
+//            if(element.getTitulo().equalsIgnoreCase(titulo)){
+//                return element;
+//            }
+//        }
+//        return  null;
+        //con stream
+       return contenido.stream().filter(s->s.getTitulo().equalsIgnoreCase(titulo)).findFirst().orElse(null);
     }
 
     public  List<String> buscarPorGenero(String genero){
@@ -46,6 +51,6 @@ public class Plataforma {
                 .filter(s -> s.getGenero().equalsIgnoreCase(genero))
                 .map(Pelicula::getTitulo)   // convierte cada Pelicula a su String titulo
                 .collect(Collectors.toList());
-    return titulos;
+        return titulos;
     }
 }
