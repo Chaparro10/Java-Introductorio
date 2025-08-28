@@ -1,7 +1,7 @@
 package platzi.play.plataforma;
 
+import platzi.play.contenido.Contenido;
 import platzi.play.contenido.Genero;
-import platzi.play.contenido.Pelicula;
 import platzi.play.contenido.ResumenContenido;
 import platzi.play.exception.PeliculaExistenteException;
 import platzi.play.utils.FileUtils;
@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class Plataforma {
     private  String nombre;
-    private List<Pelicula> contenido;
-    private Map<Pelicula,Integer> vizualizaciones;
+    private List<Contenido> contenido;
+    private Map<Contenido,Integer> vizualizaciones;
 
     public Plataforma(String nombre){
             this.nombre=nombre;
@@ -20,20 +20,20 @@ public class Plataforma {
             this.vizualizaciones= new HashMap<>();
     }
 
-    public void reproducir(Pelicula elemento){
+    public void reproducir(Contenido elemento){
        this.contarVisualizaciones(elemento);
        elemento.reproduciendo();
     }
 
-    public void contarVisualizaciones(Pelicula elemento){
+    public void contarVisualizaciones(Contenido elemento){
             int conteoActual=vizualizaciones.getOrDefault(elemento,0);
             System.out.println(elemento.getTitulo() +" ha sido reproducido "+ conteoActual +" veces");
             vizualizaciones.put(elemento,conteoActual + 1);
     }
 
-    public void agregar(Pelicula elemento){
+    public void agregar(Contenido elemento){
 
-        Pelicula contenido= this.buscarPorTitulo(elemento.getTitulo());
+        Contenido contenido= this.buscarPorTitulo(elemento.getTitulo());
         if(contenido != null){
             throw  new PeliculaExistenteException(elemento.getTitulo());
         }
@@ -42,7 +42,7 @@ public class Plataforma {
         this.contenido.add(elemento);
     }
 
-    public List<Pelicula> getContenido(){
+    public List<Contenido> getContenido(){
         return  contenido;
     }
     public void mostrarPeliculas(){
@@ -58,11 +58,11 @@ public class Plataforma {
     public List<ResumenContenido> getResumenes(){
         return contenido.stream().map(c ->new ResumenContenido(c.getTitulo(),c.getDuracion(),c.getGenero())).toList();
     }
-    public void eliminar(Pelicula element){
+    public void eliminar(Contenido element){
         this.contenido.remove(element);
         System.out.println("Pelicula eliminada: "+ element.obtenerFichaTecnica());
     }
-    public Pelicula buscarPorTitulo(String titulo){
+    public Contenido buscarPorTitulo(String titulo){
 //        for(Pelicula element:contenido){
 //            if(element.getTitulo().equalsIgnoreCase(titulo)){
 //                return element;
@@ -76,7 +76,7 @@ public class Plataforma {
     public  List<String> buscarPorGenero(Genero genero){
         List<String> titulos = contenido.stream()
                 .filter(s -> s.getGenero().equals(genero))
-                .map(Pelicula::getTitulo)   // convierte cada Pelicula a su String titulo
+                .map(Contenido::getTitulo)   // convierte cada Pelicula a su String titulo
                 .collect(Collectors.toList());
         return titulos;
     }
@@ -85,8 +85,8 @@ public class Plataforma {
         return contenido.stream().mapToDouble(s->s.getDuracion()).sum();
     }
 
-    public List<Pelicula> getPopulares(){
-        return  contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getCalificacion).reversed())
+    public List<Contenido> getPopulares(){
+        return  contenido.stream().sorted(Comparator.comparingDouble(Contenido::getCalificacion).reversed())
                 .toList();
 //        return contenido.stream().filter(s->s.getCalificacion()>3)
 //                .map(Pelicula::obtenerFichaTecnica)
@@ -94,15 +94,15 @@ public class Plataforma {
     }
 
     public String getPeliculaLarga(){
-        return  contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getDuracion).reversed()).map(Pelicula::obtenerFichaTecnica).findFirst().orElse(null);
+        return  contenido.stream().sorted(Comparator.comparingDouble(Contenido::getDuracion).reversed()).map(Contenido::obtenerFichaTecnica).findFirst().orElse(null);
     }
     public String getPeliculaCorta(){
-        return  contenido.stream().sorted(Comparator.comparingDouble(Pelicula::getDuracion)).map(Pelicula::obtenerFichaTecnica).findFirst().orElse(null);
+        return  contenido.stream().sorted(Comparator.comparingDouble(Contenido::getDuracion)).map(Contenido::obtenerFichaTecnica).findFirst().orElse(null);
     }
 
-    public List<Pelicula> getPeliculasConMismaDuracion() {
+    public List<Contenido> getPeliculasConMismaDuracion() {
         return contenido.stream()
-                .collect(Collectors.groupingBy(Pelicula::getDuracion))
+                .collect(Collectors.groupingBy(Contenido::getDuracion))
                 .values().stream()
                 .filter(lista -> lista.size() > 1)   // solo duraciones repetidas
                 .flatMap(List::stream)               // aplana
@@ -110,10 +110,10 @@ public class Plataforma {
     }
 
 
-    public  Pelicula masVistas(){
+    public Contenido masVistas(){
         int maxReproducciones=0;
-        Pelicula maxReproducida=null;
-            for(Map.Entry<Pelicula,Integer> entry:vizualizaciones.entrySet()){
+        Contenido maxReproducida=null;
+            for(Map.Entry<Contenido,Integer> entry:vizualizaciones.entrySet()){
                 if(entry.getValue()>maxReproducciones){
                     maxReproducciones=entry.getValue();
                     maxReproducida=entry.getKey();

@@ -1,7 +1,7 @@
 package platzi.play.utils;
 
+import platzi.play.contenido.Contenido;
 import platzi.play.contenido.Genero;
-import platzi.play.contenido.Pelicula;
 import platzi.play.contenido.TestProtected;
 
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 public class FileUtils {
 
-    public static  void escribirArchivo(Pelicula contenido,String Separator){
+    public static  void escribirArchivo(Contenido contenido, String Separator){
         String linea = String.join(Separator,contenido.getTitulo(),
                 String.valueOf(contenido.getDuracion()),
                 contenido.getGenero().name(),
@@ -32,8 +32,8 @@ public class FileUtils {
 
     }
 
-    public static List<Pelicula> leerContenido(String path,String Separator){
-        List<Pelicula> contenidoDesdeArchivo= new ArrayList<>();
+    public static List<Contenido> leerContenido(String path, String Separator){
+        List<Contenido> contenidoDesdeArchivo= new ArrayList<>();
 
         try{
             List<String> lineas = Files.readAllLines(Paths.get(path));

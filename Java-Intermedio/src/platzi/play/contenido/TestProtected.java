@@ -1,6 +1,6 @@
 package platzi.play.contenido;
 
-public class TestProtected  extends Pelicula{
+public class TestProtected  extends Contenido {
     public TestProtected(String titulo, Genero genero, double duracion, boolean disponible) {
         super(titulo, genero, disponible, duracion);
     }
