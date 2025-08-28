@@ -22,6 +22,8 @@ public class Main {
     public  static  final int PELICULA_LARGA=8;
     public  static  final int PELICULA_CORTA=9;
     public  static  final int PELICULAS_IGUALES=10;
+    public  static  final int REPRODUCIR_PELICULA=11;
+    public static  final int PELICULA_MAX_REPRODUCIDA=12;
     public static void main(String[] args) {
         System.out.println(NAME +" "+ VERSION);
         Plataforma plataforma = new Plataforma(NAME);
@@ -41,6 +43,8 @@ public class Main {
                         8.Pelicula mas larga
                         9.Pelicula mas corta
                         10.Peliculas que duran lo mismo
+                        11.Reproducir pelicula
+                        12.Pelicula mas Reproducida
                         6.Salir
                         """);
             System.out.println("Opcion elegida:"+ opcionElegida);
@@ -110,6 +114,22 @@ public class Main {
                     System.out.println("====PELICULA DURAN LO MISMO====");
                     List<Pelicula> peliculas = plataforma.getPeliculasConMismaDuracion();
                    peliculas.forEach(contenido-> System.out.println(contenido.obtenerFichaTecnica()));
+                }
+                case  REPRODUCIR_PELICULA -> {
+                    System.out.println("====PELICULA REPRODUCIENDO====");
+                    String titulo = ScannerUtils.capturarTexto("Ingresa el titulo a reproducir");
+                    Pelicula pelicula= plataforma.buscarPorTitulo(titulo);
+                    if(pelicula != null){
+                        plataforma.reproducir(pelicula);
+                    }else{
+                        System.out.println("Titulo no encontrado intente nuevamente");
+                    }
+
+                }
+                case  PELICULA_MAX_REPRODUCIDA -> {
+                    System.out.println("====PELICULA MAX REPRODUCIDA====");
+                    Pelicula pelicula = plataforma.masVistas();
+                    System.out.println(pelicula.getTitulo());
                 }
                 case SALIR ->  System.exit(0);
             }

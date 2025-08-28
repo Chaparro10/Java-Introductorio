@@ -5,18 +5,29 @@ import platzi.play.contenido.Pelicula;
 import platzi.play.contenido.ResumenContenido;
 import platzi.play.exception.PeliculaExistenteException;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Plataforma {
     private  String nombre;
     private List<Pelicula> contenido;
+    private Map<Pelicula,Integer> vizualizaciones;
 
     public Plataforma(String nombre){
             this.nombre=nombre;
             this.contenido=new ArrayList<>();
+            this.vizualizaciones= new HashMap<>();
+    }
+
+    public void reproducir(Pelicula elemento){
+       this.contarVisualizaciones(elemento);
+       elemento.reproduciendo();
+    }
+
+    public void contarVisualizaciones(Pelicula elemento){
+            int conteoActual=vizualizaciones.getOrDefault(elemento,0);
+            System.out.println(elemento.getTitulo() +" ha sido reproducido "+ conteoActual +" veces");
+            vizualizaciones.put(elemento,conteoActual + 1);
     }
 
     public void agregar(Pelicula elemento){
@@ -94,6 +105,19 @@ public class Plataforma {
                 .filter(lista -> lista.size() > 1)   // solo duraciones repetidas
                 .flatMap(List::stream)               // aplana
                 .collect(Collectors.toList());
+    }
+
+
+    public  Pelicula masVistas(){
+        int maxReproducciones=0;
+        Pelicula maxReproducida=null;
+            for(Map.Entry<Pelicula,Integer> entry:vizualizaciones.entrySet()){
+                if(entry.getValue()>maxReproducciones){
+                    maxReproducciones=entry.getValue();
+                    maxReproducida=entry.getKey();
+                }
+            }
+            return  maxReproducida;
     }
 
 }
