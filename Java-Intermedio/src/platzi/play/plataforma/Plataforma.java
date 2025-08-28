@@ -131,4 +131,12 @@ public class Plataforma {
             return  maxReproducida;
     }
 
+    public void getContenidoPromocionable(){
+        List<Promocinable> promocinables= contenido.stream().filter(s->s instanceof  Promocinable)
+                .map(f->(Promocinable) f)
+                .toList();
+        promocinables.forEach(s-> System.out.println(s.promocionar()));
+
+    }
+
 }

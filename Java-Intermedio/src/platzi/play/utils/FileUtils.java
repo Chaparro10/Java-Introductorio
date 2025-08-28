@@ -57,11 +57,9 @@ public class FileUtils {
                     Contenido contenido;
 
                     if("PELICULA".equalsIgnoreCase(tipoContenido)){
-                        System.out.println("AQUI");
                         contenido = new Pelicula(titulo,genero,true,duracion);
                         contenido.calificar(3);
                     }else{
-                        System.out.println("AQUI2");
                         String narrador=datos[6];
                         contenido = new Documental(titulo,genero,true,duracion,narrador);
                         contenido.calificar(3);
@@ -75,7 +73,6 @@ public class FileUtils {
         } catch (IOException e) {
             System.out.println("Error leyendo el archivo "+ e);
         }
-        System.out.println("contenido que se va insertar "+ contenidoDesdeArchivo);
         return contenidoDesdeArchivo;
     }
 }
