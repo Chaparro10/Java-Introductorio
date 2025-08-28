@@ -3,7 +3,7 @@ import platzi.play.contenido.Pelicula;
 import platzi.play.contenido.TestProtected;
 import platzi.play.exception.PeliculaExistenteException;
 import platzi.play.plataforma.Plataforma;
-import platzi.play.plataforma.Usuario;
+import platzi.play.utils.FileUtils;
 import platzi.play.utils.ScannerUtils;
 
 import java.util.List;
@@ -136,15 +136,16 @@ public class Main {
         }
     }
     private static  void cargarPeliculas(Plataforma plataforma){
-        plataforma.agregar(new TestProtected("shrek", Genero.ANIMADA,100 ,true));
-        plataforma.agregar(new TestProtected("Inception",Genero.CIENCIA_FICCION,100,true));
-        plataforma.agregar(new TestProtected("Titanic",Genero.DRAMA,120,true));
-        plataforma.agregar(new TestProtected("John wick",Genero.ACCION,120,true));
-        plataforma.agregar(new TestProtected("El conjuro",Genero.TERROR,120,true));
-        plataforma.agregar(new TestProtected("Coco",Genero.ANIMADA,120,true));
-        plataforma.agregar(new TestProtected("Interstellar",Genero.CIENCIA_FICCION,120,true));
-        plataforma.agregar(new TestProtected("Joker",Genero.DRAMA,120,true));
-        plataforma.agregar(new TestProtected("Toy story",Genero.ANIMADA,120,true));
-        plataforma.agregar(new TestProtected("Avengers",Genero.ACCION,90,true));
+        plataforma.getContenido().addAll(FileUtils.leerContenido("Java-Intermedio/contenido.txt","|"));
+//        plataforma.agregar(new TestProtected("shrek", Genero.ANIMADA,100 ,true));
+//        plataforma.agregar(new TestProtected("Inception",Genero.CIENCIA_FICCION,100,true));
+//        plataforma.agregar(new TestProtected("Titanic",Genero.DRAMA,120,true));
+//        plataforma.agregar(new TestProtected("John wick",Genero.ACCION,120,true));
+//        plataforma.agregar(new TestProtected("El conjuro",Genero.TERROR,120,true));
+//        plataforma.agregar(new TestProtected("Coco",Genero.ANIMADA,120,true));
+//        plataforma.agregar(new TestProtected("Interstellar",Genero.CIENCIA_FICCION,120,true));
+//        plataforma.agregar(new TestProtected("Joker",Genero.DRAMA,120,true));
+//        plataforma.agregar(new TestProtected("Toy story",Genero.ANIMADA,120,true));
+//        plataforma.agregar(new TestProtected("Avengers",Genero.ACCION,90,true));
     }
 }
