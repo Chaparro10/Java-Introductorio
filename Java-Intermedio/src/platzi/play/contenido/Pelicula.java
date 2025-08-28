@@ -65,4 +65,8 @@ public class Pelicula {
     public double getCalificacion() {
         return calificacion;
     }
+
+    public LocalDate getFechaEstreno() {
+        return fechaEstreno;
+    }
 }

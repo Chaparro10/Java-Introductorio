@@ -7,11 +7,30 @@ import platzi.play.contenido.TestProtected;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 public class FileUtils {
+
+    public static  void escribirArchivo(Pelicula contenido,String Separator){
+        String linea = String.join(Separator,contenido.getTitulo(),
+                String.valueOf(contenido.getDuracion()),
+                contenido.getGenero().name(),
+                String.valueOf(contenido.getCalificacion()),
+                String.valueOf(contenido.getFechaEstreno()));
+
+        try{
+                Files.writeString(Paths.get("Java-Intermedio/contenido.txt"),
+                        linea + System.lineSeparator(),
+                        StandardOpenOption.CREATE,
+                        StandardOpenOption.APPEND);
+        } catch (Exception e) {
+            System.out.println("Error escribiendo el archivo :"+ e.getMessage());
+        }
+
+    }
 
     public static List<Pelicula> leerContenido(String path,String Separator){
         List<Pelicula> contenidoDesdeArchivo= new ArrayList<>();
