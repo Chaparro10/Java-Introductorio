@@ -1,8 +1,6 @@
 package platzi.play.utils;
 
-import platzi.play.contenido.Contenido;
-import platzi.play.contenido.Genero;
-import platzi.play.contenido.TestProtected;
+import platzi.play.contenido.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,8 +20,16 @@ public class FileUtils {
                 String.valueOf(contenido.getFechaEstreno()));
 
         try{
+            String lineaFinal;
+
+            if(contenido instanceof Documental documental){
+                    lineaFinal="DOCUMENTAL" + Separator + linea + Separator + documental.getNarrador();
+            }else{
+                lineaFinal ="PELICULA" + Separator + linea;
+            }
+
                 Files.writeString(Paths.get("Java-Intermedio/contenido.txt"),
-                        linea + System.lineSeparator(),
+                        lineaFinal + System.lineSeparator(),
                         StandardOpenOption.CREATE,
                         StandardOpenOption.APPEND);
         } catch (Exception e) {
@@ -40,21 +46,36 @@ public class FileUtils {
             lineas.forEach(linea->{
                 String[] datos = linea.split(Pattern.quote(Separator));
 
-                if(datos.length==5){
-                    String titulo=datos[0];
-                    double duracion=Double.parseDouble(datos[1]);
-                    Genero genero=Genero.valueOf(datos[2]);
-                    double calificacion= datos[3].isBlank() ? 0 : Double.parseDouble(datos[3]);
+                String tipoContenido=datos[0];
 
-                    TestProtected pelicula = new TestProtected(titulo, genero,duracion,true);
-                    pelicula.calificar(calificacion);
-                    contenidoDesdeArchivo.add(pelicula);
+                if(("PELICULA".equalsIgnoreCase(tipoContenido) && datos.length==6) || ("DOCUMENTAL".equalsIgnoreCase(tipoContenido) && datos.length==7)){
+                    String titulo=datos[1];
+                    double duracion=Double.parseDouble(datos[2]);
+                    Genero genero=Genero.valueOf(datos[3]);
+                    double calificacion= datos[4].isBlank() ? 0 : Double.parseDouble(datos[4]);
+
+                    Contenido contenido;
+
+                    if("PELICULA".equalsIgnoreCase(tipoContenido)){
+                        System.out.println("AQUI");
+                        contenido = new Pelicula(titulo,genero,true,duracion);
+                        contenido.calificar(3);
+                    }else{
+                        System.out.println("AQUI2");
+                        String narrador=datos[6];
+                        contenido = new Documental(titulo,genero,true,duracion,narrador);
+                        contenido.calificar(3);
+                    }
+
+//                    TestProtected pelicula = new TestProtected(titulo, genero,duracion,true);
+//                    pelicula.calificar(calificacion);
+                    contenidoDesdeArchivo.add(contenido);
                 }
             });
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             System.out.println("Error leyendo el archivo "+ e);
         }
+        System.out.println("contenido que se va insertar "+ contenidoDesdeArchivo);
         return contenidoDesdeArchivo;
     }
 }

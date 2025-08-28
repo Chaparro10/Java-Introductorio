@@ -3,8 +3,6 @@ import platzi.play.exception.PeliculaExistenteException;
 import platzi.play.plataforma.Plataforma;
 import platzi.play.utils.FileUtils;
 import platzi.play.utils.ScannerUtils;
-
-import javax.print.Doc;
 import java.util.List;
 
 
@@ -34,7 +32,7 @@ public class Main {
                 int opcionElegida=ScannerUtils.capturarNumero("""
                         Ingresa una de las siguientes opciones:
                         1.Agregar contenido
-                        2.Mostrar todo
+                        2.Mostrar todo por tipo
                         3.Buscar por titulo
                         4.Buscar por genero
                         5.Eliminar
@@ -75,7 +73,19 @@ public class Main {
                         System.out.println(e.getMessage());
                     }
                 }
-                case MOSTRAR -> plataforma.mostrarPeliculas();
+                case MOSTRAR -> {
+                    int opcion = ScannerUtils.capturarNumero("Ingresa el tipo a filtrar:::1.Peliculas,2.Documentales");
+                    if(opcion !=1 && opcion !=2){
+                        System.out.println("Opcion no disponible intente, nuevamente");
+                    }
+                    if(opcion==1){
+                        plataforma.mostrarPeliculas();
+                    }
+                    if (opcion==2){
+                        plataforma.mostrarDocumentales();
+                    }
+
+                }
                 case  BUSCAR -> {
                     String titulo = ScannerUtils.capturarTexto("Ingresa el titulo a buscar");
                     Contenido contenido = plataforma.buscarPorTitulo(titulo);
@@ -147,7 +157,7 @@ public class Main {
         }
     }
     private static  void cargarPeliculas(Plataforma plataforma){
-        plataforma.getContenido().addAll(FileUtils.leerContenido("Java-Intermedio/contenido.txt","|"));
+      plataforma.getContenido().addAll(FileUtils.leerContenido("Java-Intermedio/contenido.txt","|"));
 //        plataforma.agregar(new TestProtected("shrek", Genero.ANIMADA,100 ,true));
 //        plataforma.agregar(new TestProtected("Inception",Genero.CIENCIA_FICCION,100,true));
 //        plataforma.agregar(new TestProtected("Titanic",Genero.DRAMA,120,true));

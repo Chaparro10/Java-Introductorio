@@ -1,8 +1,6 @@
 package platzi.play.plataforma;
 
-import platzi.play.contenido.Contenido;
-import platzi.play.contenido.Genero;
-import platzi.play.contenido.ResumenContenido;
+import platzi.play.contenido.*;
 import platzi.play.exception.PeliculaExistenteException;
 import platzi.play.utils.FileUtils;
 
@@ -32,7 +30,6 @@ public class Plataforma {
     }
 
     public void agregar(Contenido elemento){
-
         Contenido contenido= this.buscarPorTitulo(elemento.getTitulo());
         if(contenido != null){
             throw  new PeliculaExistenteException(elemento.getTitulo());
@@ -46,13 +43,25 @@ public class Plataforma {
         return  contenido;
     }
     public void mostrarPeliculas(){
-        System.out.println("TOTAL DE PELICULAS::: "+ contenido.size());
+        System.out.println("TOTAL DE PELICULAS::: "+ contenido.stream().filter(s->s instanceof  Pelicula).count());
 //        for(Pelicula element:contenido){
 //            System.out.println("Pelicula: "+ element.obtenerFichaTecnica());
 //        }
 
         //lambdas
-        contenido.forEach(contenido-> System.out.println("Pelicula: "+ contenido.obtenerFichaTecnica()));
+        //contenido.forEach(contenido-> System.out.println("Pelicula: "+ contenido.obtenerFichaTecnica()));
+
+
+        List<Pelicula> peliculas= contenido.stream().filter(s-> s instanceof  Pelicula).map(f->(Pelicula) f)
+                .toList();
+        peliculas.forEach(contenido-> System.out.println("Pelicula::::"+ contenido.obtenerFichaTecnica()));
+    }
+
+    public void mostrarDocumentales(){
+        System.out.println("TOTAL DE DOCUMENTALES::: "+ contenido.stream().filter(s->s instanceof Documental).count());
+        List<Documental> documentals= contenido.stream().filter(s-> s instanceof  Documental).map(f->(Documental) f)
+                .toList();
+        documentals.forEach(contenido-> System.out.println("Documental:::: "+ contenido.obtenerFichaTecnica()));
     }
 
     public List<ResumenContenido> getResumenes(){
