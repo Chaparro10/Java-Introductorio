@@ -138,5 +138,110 @@ public class Plataforma {
         promocinables.forEach(s-> System.out.println(s.promocionar()));
 
     }
+    //METODOS DE PRACTICA (SE HICIERON EN OTRO PROYECTO)
+    /*
+
+
+    //Obtener todas las películas ordenadas por título alfabéticamente.
+    public List<Pelicula> getAllOrdenadas(){
+        return contenido.stream().sorted(Comparator.comparing(Pelicula::getTitulo)).toList();
+    }
+   // Contar cuántas películas tienen una duración menor a 90 minutos.
+
+    public int getCountDuracionMenor90(){
+        return (int) contenido.stream().filter(p->p.getDuracion()<90).count();
+    }
+
+    //Verificar si existe alguna película con calificación mayor a 9
+    public void verificarCalificacionMayor9(){
+        boolean existe = contenido.stream().anyMatch(p -> p.getCalificacion() > 9);
+        if (existe) {
+            System.out.println("Sí existen películas con calificación mayor a 9");
+        }
+    }
+
+    //Obtener una lista de todos los géneros únicos presentes en la plataforma.
+    public List<String> getAllGeneros(){
+        return contenido.stream()
+                .map(Pelicula::getGenero)
+                .distinct()
+                .toList();
+    }
+
+
+    //Obtener el título de todas las películas en mayúsculas
+    public List<String> getAllTituloMayusculas(){
+        return  contenido.stream().map(p->p.getTitulo().toUpperCase()).toList();
+    }
+    //Filtrar las películas que tienen una palabra específica en el título
+    public List<Pelicula> getAllByPalabra(String palabra){
+        return  contenido.stream().filter(p->p.getTitulo().contains(palabra)).toList();
+    }
+
+    //Agrupar las películas por género en un Map
+    public Map<String, List<Pelicula>> agrupacionPorGenero(){
+        return contenido.stream()
+                .collect(Collectors.groupingBy(Pelicula::getGenero));
+    }
+
+    //Sumar la duración total solo de las películas de un género específico
+    public double getDuracionGenero(String genero){
+        return  contenido.stream()
+                .filter(p->p.getGenero().equalsIgnoreCase(genero))
+                .mapToDouble(p->p.getDuracion()).sum();
+    }
+
+    //Obtener las tres películas peor calificadas
+    public List<Pelicula> getTop3Peor(){
+        return  contenido.stream().sorted(Comparator.comparing(pelicula -> pelicula.getCalificacion())).limit(3).toList();
+    }
+
+    //Obtener una lista de películas cuyo título comienza con una letra específica
+    public List<Pelicula> getAllWithFirstCharacter(String caracter){
+        return  contenido.stream().filter(p->p.getTitulo().startsWith(caracter)).toList();
+    }
+
+
+    //Verificar si todas las películas tienen una duración mayor a un valor dado
+    public void verificarDuracion(double duracion){
+        boolean todas = contenido.stream()
+                .allMatch(p->p.getDuracion()>duracion);
+
+        if(todas){
+            System.out.println("Todas la peliculas son mayor a esa duracion");
+        }
+    }
+
+    //Obtener el promedio de calificación por género
+    public Map<String,Double> getAllPromedioByGenero(){
+        return contenido.stream().collect(Collectors.groupingBy(
+                Pelicula::getGenero,                     // Agrupar por género
+                Collectors.averagingDouble(Pelicula::getCalificacion) // Promedio de calificación
+        ));
+    }
+
+    //Contar cuántas películas hay por género
+    public Map<String,Long> getCountByGenere(){
+        return contenido.stream().collect(Collectors.groupingBy(
+                Pelicula::getGenero,                     // Agrupar por género
+                Collectors.counting()// contar
+        ));
+    }
+
+    //Obtener los títulos de películas únicos ordenados alfabéticament
+    public List<Pelicula> getUnicos(){
+        return  contenido.stream().distinct().sorted(Comparator.comparing(Pelicula::getTitulo)).toList();
+    }
+
+    //Obtener un conjunto (Set) de todas las calificaciones únicas existentes
+    public Set<Double> getCalificacionesUnicas() {
+        return contenido.stream()
+                .map(Pelicula::getCalificacion)
+                .collect(Collectors.toSet());
+    }
+
+
+    
+    */
 
 }
